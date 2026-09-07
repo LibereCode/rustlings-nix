@@ -39,10 +39,10 @@
     git --version # Use packages
   '';
 
-  # https://devenv.sh/tasks/
-  tasks = {
-    "checks:cargo".exec = "cargo check"; # TEST
-  };
+  # # https://devenv.sh/tasks/
+  # tasks = {
+  #   "checks:cargo".exec = "cargo check"; # TEST
+  # };
 
   /*
     devenv inputs add git-hooks github:cachix/git-hooks.nix

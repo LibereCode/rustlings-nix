@@ -1,4 +1,4 @@
-# hello-rust
+# lets get rusty 🦀
 
 My solutions to rustlings-exercises.
 I am on _NixOS_, and use [devenv.sh](https://devenv.sh/languages/rust/) (_btw_).

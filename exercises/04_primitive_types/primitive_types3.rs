@@ -1,6 +1,7 @@
 fn main() {
     // TODO: Create an array called `a` with at least 100 elements in it.
-    // let a = ???
+    let a = "Crazy? I was crazy once. Locked in a room. A rubber-room. Rubber-room with rats. Rats make me crazy.".repeat(10);
+    println!("Length == {}:\n{}", a.len(), a);
 
     if a.len() >= 100 {
         println!("Wow, that's a big array!");

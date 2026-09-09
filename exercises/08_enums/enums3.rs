@@ -43,9 +43,27 @@ impl State {
         self.quit = true;
     }
 
+    ///Docs: [listing-19-15](https://doc.rust-lang.org/book/ch19-03-pattern-syntax.html#listing-19-15)
+    ///Seems that `enum` + `match` is a really good fit
+    ///(was kind of confused what the point of *enum*s was, the first time I read the docs).
     fn process(&mut self, message: Message) {
         // TODO: Create a match expression to process the different message
         // variants using the methods defined above.
+        match message {
+            Message::Resize { width, height } => {
+                self.resize(width, height);
+            }
+            Message::Move(point) => {
+                self.move_position(point);
+            }
+            Message::Echo(string) => {
+                self.echo(string);
+            }
+            Message::ChangeColor(red, green, blue) => {
+                self.change_color(red, green, blue);
+            }
+            Message::Quit => self.quit(),
+        }
     }
 }
 

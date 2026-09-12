@@ -3,7 +3,7 @@
 
 // TODO: Bring `SystemTime` and `UNIX_EPOCH` from the `std::time` module into
 // your scope. Bonus style points if you can do it with one line!
-// use ???;
+use std::time::{SystemTime, UNIX_EPOCH}; // Docs: <https://doc.rust-lang.org/book/ch07-04-bringing-paths-into-scope-with-the-use-keyword.html#listing-7-18>
 
 fn main() {
     match SystemTime::now().duration_since(UNIX_EPOCH) {

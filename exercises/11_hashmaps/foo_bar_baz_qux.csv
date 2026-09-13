@@ -1,0 +1,6 @@
+Foo,Bar,4,2
+Foo,Baz,3,1
+Foo,Qux,2,0
+Bar,Baz,2,1
+Bar,Qux,1,0
+Baz,Qux,9,11

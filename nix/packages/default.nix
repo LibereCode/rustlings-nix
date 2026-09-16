@@ -1,19 +1,15 @@
 {
     self,
-    inputs,
     ...
 }:
 {
     perSystem =
         {
             pkgs,
-            self',
+            config,
             lib,
             ...
         }:
-        let
-            naersk' = pkgs.callPackage inputs.naersk { };
-        in
         {
             packages = {
                 ## NOTE Using default packageWrapping
@@ -29,12 +25,7 @@
                     };
                 });
 
-                #INFO: This one is better
-                naersk = naersk'.buildPackage {
-                    src = self;
-                };
-
-                default = self'.packages.naersk;
+                default = config.packages.basic;
             };
         };
 }

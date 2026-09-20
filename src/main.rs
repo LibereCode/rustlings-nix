@@ -26,3 +26,22 @@ fn foobar() -> String {
     println!("- This is printed during call: {}?", msg.as_str());
     msg
 }
+
+// /// A simple hello-world, that will print "Hello, World!".
+// ///
+// /// All the variables used here aren't needed.
+// /// The type annotation for the variables aren't needed.
+// ///
+// /// ```rust main.rs
+// /// /// A more simple "Hello, World!" (that will do the same):
+// /// fn main() {
+// ///     println!("Hello, World!")
+// /// }
+// /// ```
+// fn main() {
+//     let mut hi: String = String::from("Hello");
+//     let comma: &str = ", ";
+//     hi += comma;
+//     let planet = "World";
+//     println!("{}{}!", hi, planet)
+// }

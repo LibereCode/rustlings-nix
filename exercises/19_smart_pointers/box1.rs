@@ -9,21 +9,31 @@
 // item in a cons list contains two elements: The value of the current item and
 // the next item. The last item is a value called `Nil`.
 
-// TODO: Use a `Box` in the enum definition to make the code compile.
+// INFO Basically: <https://doc.rust-lang.org/book/ch15-01-box.html#getting-a-recursive-type-with-a-known-size>
+
+// DONE: Use a `Box` in the enum definition to make the code compile.
 #[derive(PartialEq, Debug)]
 enum List {
-    Cons(i32, List),
-    Nil,
+    Cons(i32, Box<List>), // <- "Cons" is an arbitrary name, ie could be: "Node"
+    Nil,                  // <- "Nil" is an arbitrary name, ie could be: "Nothing"
 }
 
-// TODO: Create an empty cons list.
+// DONE: Create an empty cons list.
 fn create_empty_list() -> List {
-    todo!()
+    List::Nil
 }
 
-// TODO: Create a non-empty cons list.
+// DONE: Create a non-empty cons list.
+//
+/// Can also be shorter:
+/// ```rust
+/// // shorter Box
+/// fn create_non_empty_list() -> List {
+///     List::Cons(1, Box::new(List::Nil))
+/// }
+/// ```
 fn create_non_empty_list() -> List {
-    todo!()
+    List::Cons(1, Box::new(List::Cons(2, Box::new(List::Nil))))
 }
 
 fn main() {

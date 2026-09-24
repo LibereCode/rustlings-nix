@@ -8,7 +8,7 @@
 // The third thread (offset 2), will sum 2, 10, 18, …
 // …
 // The eighth thread (offset 7), will sum 7, 15, 23, …
-//
+// foobar foobar foobar foobar Hello, World! MonkeyType
 // Each thread should own a reference-counting pointer to the vector of
 // numbers. But `Rc` isn't thread-safe. Therefore, we need to use `Arc`.
 //
@@ -22,14 +22,14 @@ use std::{sync::Arc, thread};
 fn main() {
     let numbers: Vec<_> = (0..100u32).collect();
 
-    // TODO: Define `shared_numbers` by using `Arc`.
-    // let shared_numbers = ???;
+    // DONE: Define `shared_numbers` by using `Arc`.
+    let shared_numbers = Arc::new(numbers);
 
     let mut join_handles = Vec::new();
 
     for offset in 0..8 {
-        // TODO: Define `child_numbers` using `shared_numbers`.
-        // let child_numbers = ???;
+        // DONE: Define `child_numbers` using `shared_numbers`.
+        let child_numbers = Arc::clone(&shared_numbers);
 
         let handle = thread::spawn(move || {
             let sum: u32 = child_numbers.iter().filter(|&&n| n % 8 == offset).sum();

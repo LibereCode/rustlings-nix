@@ -7,6 +7,12 @@ fn main() -> io::Result<()> {
 
     using_foobar();
 
+    // counter();
+
+    list_2_box();
+
+    // from_hashmaps_vikings();
+
     Ok(())
 }
 
@@ -44,4 +50,107 @@ fn foobar() -> String {
 //     hi += comma;
 //     let planet = "World";
 //     println!("{}{}!", hi, planet)
+// }
+
+// /// Count to ten (See also `counter2`)
+// /// [!WARN]
+// /// `toolazy` will not work, becaue it is... too lazy.
+// fn counter() {
+//     for i in 1..=10 {
+//         println!("{}", i);
+//     }
+//     // let toolazy = (1..=10).map(|i| println!("{}", i)); // BAD
+// }
+
+fn list_2_box() {
+    #[derive(Debug)]
+    // enum Value {
+    //     I32(i32),
+    //     U32(u32),
+    //     Text(String),
+    // }
+    // /// Is this how macros are made?
+    // macro_rules! impl_from {
+    // ($($ty:ty => $variant:ident),* $(,)?) => {
+    //         $(impl From<$ty> for Value {
+    //             fn from(v: $ty) -> Self {
+    //                 Value::$variant(v.into())
+    //             }
+    //         })*
+    //     };
+    // }
+    // impl_from!(
+    //     i32 => I32,
+    //     u32 => U32,
+    //     String => Text,
+    // );
+
+    enum List {
+        Cons(i32, Box<List>),
+        Nil,
+    }
+
+    fn list_from_slice(values: &[i32]) -> List {
+        match values {
+            [] => List::Nil,
+            [first, rest @ ..] => List::Cons(*first, Box::new(list_from_slice(rest))),
+        }
+    }
+
+    fn print_list(list: &List) {
+        match list {
+            List::Cons(value, next) => {
+                println!("{}", value);
+                print_list(next);
+            }
+            List::Nil => {}
+        }
+    }
+
+    // let values: Vec<Value> = vec![42.into(), 100u32.into(), String::from("hello").into()];
+    let values = [1, 42, 723];
+
+    let list = list_from_slice(&values);
+    println!();
+    println!("Debug pretty-print:\n{:#?}", &list);
+    println!();
+    println!("match print:");
+    print_list(&list);
+}
+
+// /// This is an example from the lib-src of HashMap
+// /// (find it by using lsp-hover on "**HashMap**" in `use std::collections::HashMap`)
+// fn from_hashmaps_vikings() {
+//     use std::collections::HashMap;
+//
+//     #[derive(Hash, Eq, PartialEq, Debug)]
+//     struct Viking {
+//         name: String,
+//         country: String,
+//     }
+//
+//     impl Viking {
+//         /// Creates a new Viking.
+//         fn new(name: &str, country: &str) -> Viking {
+//             Viking {
+//                 name: name.to_string(),
+//                 country: country.to_string(),
+//             }
+//         }
+//     }
+//
+//     // pretty new-line
+//     println!();
+//
+//     // Use a HashMap to store the vikings' health points.
+//     let vikings = HashMap::from([
+//         (Viking::new("Einar", "Norway"), 25),
+//         (Viking::new("Olaf", "Denmark"), 24),
+//         (Viking::new("Harald", "Iceland"), 12),
+//     ]);
+//
+//     // Use derived implementation to print the status of the vikings.
+//     for (viking, health) in &vikings {
+//         println!("{viking:?} has {health} hp");
+//     }
 // }

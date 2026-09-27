@@ -20,7 +20,7 @@ impl Default for Person {
     }
 }
 
-// TODO: Complete this `From` implementation to be able to parse a `Person`
+// DONE: Complete this `From` implementation to be able to parse a `Person`
 // out of a string in the form of "Mark,20".
 // Note that you'll need to parse the age component into a `u8` with something
 // like `"4".parse::<u8>()`.
@@ -33,9 +33,87 @@ impl Default for Person {
 // 4. If the name is empty, return the default of `Person`.
 // 5. Parse the second element from the split operation into a `u8` as the age.
 // 6. If parsing the age fails, return the default of `Person`.
+
+// // Version 1.0 // using vec, messy
+// impl From<&str> for Person {
+//     fn from(s: &str) -> Self {
+//         let mut v: Vec<&str> = s.split(",").collect();
+//         if v.len() != 2 {
+//             return Person::default();
+//         }
+//
+//         let age_str = match v.pop() {
+//             Some(s) => s,
+//             None => return Person::default(),
+//         };
+//
+//         let age = match age_str.parse::<u8>() {
+//             Ok(age) => age,
+//             Err(_) => return Person::default(),
+//         };
+//
+//         let name = match v.pop() {
+//             Some(s) => {
+//                 if s.is_empty() {
+//                     return Person::default();
+//                 } else {
+//                     s
+//                 }
+//             }
+//             None => return Person::default(),
+//         }
+//         .to_string();
+//         Self { name, age }
+//     }
+// }
+
+// Version 1.1 // vec, compact
 impl From<&str> for Person {
-    fn from(s: &str) -> Self {}
+    fn from(s: &str) -> Self {
+        let parts: Vec<&str> = s.split(',').collect();
+
+        if parts.len() != 2 || parts[0].is_empty() {
+            return Person::default();
+        }
+
+        let name = parts[0].to_string();
+        let age = match parts[1].parse::<u8>() {
+            Ok(age) => age,
+            Err(_) => return Person::default(),
+        };
+
+        Self { name, age }
+    }
 }
+
+// // Version 2.0 // without using vec
+// impl From<&str> for Person {
+//     fn from(s: &str) -> Self {
+//         let mut parts = s.split(",");
+//
+//         let name = match parts.next() {
+//             Some(name) if !name.is_empty() => name,
+//             _ => return Person::default(),
+//         };
+//
+//         let age = match parts.next() {
+//             Some(age) => match age.parse::<u8>() {
+//                 Ok(age) => age,
+//                 Err(_) => return Person::default(),
+//             },
+//             None => return Person::default(),
+//         };
+//
+//         if parts.next().is_some() {
+//             return Person::default();
+//         }
+//
+//         Self {
+//             name: name.to_string(),
+//             age,
+//         }
+//     }
+// }
 
 fn main() {
     // Use the `from` function.

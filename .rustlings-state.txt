@@ -4,6 +4,7 @@ variables1
 
 intro1
 intro2
+variables1
 variables2
 variables3
 variables4
